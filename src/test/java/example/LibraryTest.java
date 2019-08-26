@@ -4,6 +4,8 @@ package example;/*
 
 import org.junit.jupiter.api.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,21 +15,70 @@ import static org.mockito.Mockito.*;
 
 @DisplayName("A special tests collection for junit and mockito")
 class LibraryTest {
-
+	static List answer;
     @BeforeAll
     static void initTestEnv() {
+    	
     }
 
     @BeforeEach
     void initEveryMethod() {
+    	answer = Arrays.asList("1","2","3","4");
     }
 
     @Test
-    @DisplayName("someLibraryMethod should return 'true'")
-    void testSomeLibraryMethod() {
-        Library classUnderTest = new Library();
-        Assertions.assertTrue(classUnderTest.someLibraryMethod());
+    @DisplayName("isVaild should return 'false'")
+    void testIsVaild() {
+    	Library  classUnderTest = new Library();
+        Assertions.assertFalse(classUnderTest.isVaild(Arrays.asList("1","2")));  
+        Assertions.assertFalse(classUnderTest.isVaild(Arrays.asList("1","1","3")));
     }
+    
+    @Test
+    @DisplayName("isVaild should return 'true'")
+    void testIsVaild2() {
+    	Library  classUnderTest = new Library();
+        Assertions.assertFalse(classUnderTest.isVaild(Arrays.asList("1","2","3","4")));
+    }
+    
+    @Test
+    @DisplayName("countB")
+    void countB() {
+    	List input = Arrays.asList("1","3");
+    	Library  classUnderTest = new Library();
+    	assertEquals(2,classUnderTest.countB(answer,input) );
+    }
+    
+    @Test
+    @DisplayName("countA")
+    void countA() {
+    	List answer2 = Arrays.asList("1","2","3","4");
+    	List input2 = Arrays.asList("1","3");
+    	Library  classUnderTest = new Library();
+    	int countA = classUnderTest.countA(answer2,input2);
+    	assertEquals(1,countA );
+    }
+    
+    @Test
+    @DisplayName("result")
+    void result() {
+    	int countA =4;
+    	int countB =0;
+    	Library  classUnderTest = new Library();
+    	String result = classUnderTest.result(countA,countB);
+    	assertEquals("4A0B 胜利，一切正确",result );
+    }
+    
+
+//    @Test
+//    void testcountB() {
+//        Assertions.assertFalse(classUnderTest.isVaild(Arrays.asList("1","2")));  
+//    }
+    
+   
+/**
+ * 
+ * @throws Exception
 
     @Test
     @SuppressWarnings("unchecked")
@@ -86,4 +137,5 @@ class LibraryTest {
             Thread.sleep(100);
         });
     }
+     */
 }
